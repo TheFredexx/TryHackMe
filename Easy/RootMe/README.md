@@ -8,7 +8,7 @@
 nmap -sS -Pn --min-rate 5000 --top-ports 10000 --open -vvv 10.112.150.20 -oG allPorts
 ```
 
-    Puertos abiertos: 22/tcp (SSH) y 80/tcp (HTTP).
+Puertos abiertos: 22/tcp (SSH) y 80/tcp (HTTP).
 
 ![Reconocimiento](img/1.png)
 
@@ -20,11 +20,11 @@ nmap -sS -Pn --min-rate 5000 --top-ports 10000 --open -vvv 10.112.150.20 -oG all
 nmap -sCV -p22,80 10.112.150.20 -oN targeted
 ```
 
-    SSH (22/tcp): OpenSSH 8.2p1 Ubuntu.
+SSH (22/tcp): OpenSSH 8.2p1 Ubuntu.
 
-    HTTP (80/tcp): Apache httpd 2.4.41 (Ubuntu).
+HTTP (80/tcp): Apache httpd 2.4.41 (Ubuntu).
 
-    Info Adicional: El título de la web es "HackIT Home" y utiliza PHP (PHPSESSID detectado).
+Info Adicional: El título de la web es "HackIT Home" y utiliza PHP (PHPSESSID detectado).
 
 ![Servicios](img/2.png)
 
@@ -41,13 +41,14 @@ Buscamos cualquier cosa que nos pueda llamar la atención en el inspector y no e
 gobuster dir -u http://10.112.150.20 -w /usr/share/wordlists/dirb/common.txt
 ```
 
-    Resultados clave:
+Resultados clave:
 
-        /panel/ (Status: 301) - Formulario de subida.
+- /panel/ (Status: 301) - Formulario de subida.
 
-        /uploads/ (Status: 301) - Directorio de archivos.
+- /uploads/ (Status: 301) - Directorio de archivos.
 
 ![Gobuster](img/4.png)
+
 ![Panel](img/5.png)
 
 ## 3. Explotación
@@ -56,6 +57,7 @@ gobuster dir -u http://10.112.150.20 -w /usr/share/wordlists/dirb/common.txt
 #### Filtro de archivos: El servidor bloquea archivos .php con el mensaje "PHP não é permitido!".
 
 ![upload shell.php](img/7.png)
+
 ![bloqueo php](img/8.png)
 
 #### Bypass: Se renombra la shell de PentestMonkey a una extensión permitida:
