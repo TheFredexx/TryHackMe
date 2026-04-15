@@ -8,6 +8,8 @@ Inicié escaneo básico con nmap para detectar los posibles puertos abiertos.
 nmap -sS -Pn --min-rate 5000 --top-ports 10000 --open -vvv 10.112.159.116 -oG allPorts
 ```
 
+![Reconocimiento](img/1.png)
+
 Puertos abiertos:
 
     21/TCP (FTP)
@@ -26,26 +28,37 @@ Realicé un escaneo exhaustivo sobre los puertos encontrados anteriormente para 
 nmap -sCV -p21,22,80 10.112.159.116 -oN targeted
 ```
 
+![Servicios](img/2.png)
+
 Hallazgo clave: El servicio FTP permite acceso con el usuario Anonymous.
 
 ### 2.2 Inspección FTP
 
 Me conecté de forma anónima al servicio ftp proporcionando el usuario *Anonymous* y contraseña *anonymous*.
 
+![FTP](img/3.png)
 
 Una vez dentro, listé los archivos existentes, donde encontré el archivo *note_to_jake.txt*, y con el comando get me lo transferí a mi máquina local.
+
+![Extraer archivo](img/4.png)
 
 ### 2.3 Lectura de archivo
 
 Leyendo los archivos encontré dos posibles usuarios, Jake y Amy.
 
+![leer archivo](img/5.png)
+
 ### 2.4 Enumeración web
 
 Al acceder a la página web con la dirección ip proporcionada no pude localizar nada interesante.
 
+![web](img/6.png)
+
 ### 2.5 Gobuster
 
 Empleo gobuster para buscar posibles directorios y no encuentro ninguno que me pueda proporcionar nada interesante.
+
+![gobuster](img/7.png)
 
 ## 3. Explotación
 
@@ -56,6 +69,7 @@ Al no haber encontrado nada interesante en la página web, probamos la fuerza br
 ```bash
 hydra -l jake -P /usr/share/wordlists/rockyou.txt ssh://10.112.159.116
 ```
+![hydra](img/8.png)
 
 Credenciales encontradas:
     jake:987654321
@@ -63,6 +77,8 @@ Credenciales encontradas:
 ### 3.2 Acceso Inicial
 
 Accedemos por ssh proporcionando nombre y contraseña y nos conectamos correctamente. 
+
+![ssh](img/9.png)
 
 ## 4. Escalada de Privilegios
 
@@ -82,7 +98,12 @@ Utilizando la información de GTFOBins, ejecuté el siguiente comando para obten
 less /etc/profile
 !/bin/sh
 ```
+
+![escalada](img/10.png)
+
 ### 4.2 Root Flag
+
+![root.txt](img/11.png)
 
 
 
