@@ -80,6 +80,8 @@ Accedemos por ssh proporcionando nombre y contraseña y nos conectamos correctam
 
 ![ssh](img/9.png)
 
+*//Me falta poner la user flag//*
+
 ## 4. Escalada de Privilegios
 
 ### 4.1 Analisis de privilegio sudo
